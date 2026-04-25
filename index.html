@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para mi hermana</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#FDB813',
-                        secondary: '#8B4513',
-                        dark: '#121212',
+                        petal: '#FFD700',
+                        center: '#8B7355',
+                        leaf: '#8FBC8F',
+                        dark: '#000000',
                     },
                     fontFamily: {
                         cute: ['"Pacifico"', 'cursive'],
@@ -27,94 +27,148 @@
             .content-auto {
                 content-visibility: auto;
             }
-            .petal {
-                transform-origin: bottom center;
+            .petal-shape {
+                clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
+            }
+            .leaf-shape {
+                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 30% 50%);
             }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #121212;
+            background-color: #000000;
             overflow: hidden;
         }
 
         .petal {
-            background: linear-gradient(135deg, #FFE066 0%, #FDB813 100%);
-            border-radius: 100% 0;
-            box-shadow: inset 2px 2px 5px rgba(255,255,255,0.2), 
-                        inset -2px -2px 5px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #FFF8DC 0%, #FFD700 50%, #DAA520 100%);
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            transform-origin: bottom center;
         }
 
         .center {
-            background: radial-gradient(circle, #8B4513 0%, #5D2906 100%);
+            background: radial-gradient(circle, #A0826D 0%, #6B5D4F 100%);
         }
 
         .stem {
-            background: linear-gradient(to right, #2E8B57, #3CB371);
+            background: linear-gradient(to right, #556B2F, #8FBC8F);
         }
 
         .leaf {
-            background: linear-gradient(135deg, #3CB371, #2E8B57);
-            border-radius: 100% 0;
+            background: linear-gradient(135deg, #8FBC8F, #556B2F);
         }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen">
 
-    <!-- Contenedor de la flor -->
-    <div id="flower-container" class="relative w-64 h-64 md:w-80 md:h-80">
-        <!-- Centro de la flor -->
-        <div class="center absolute top-1/2 left-1/2 w-16 h-16 md:w-20 md:h-20 rounded-full -translate-x-1/2 -translate-y-1/2 opacity-0 scale-0 transition-all duration-500 ease-out"></div>
-        
-        <!-- Los pétalos se generarán aquí con JS -->
-    </div>
+    <!-- Audio para la canción -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    
 
-    <!-- Tallo y hojas -->
-    <div class="relative">
-        <div class="stem w-3 h-32 md:w-4 md:h-40 opacity-0 transition-opacity duration-500 delay-1000"></div>
-        <div class="leaf absolute top-10 -left-8 w-8 h-16 md:w-10 md:h-20 opacity-0 rotate-[-30deg] transition-opacity duration-500 delay-1200"></div>
-        <div class="leaf absolute top-16 -right-8 w-8 h-16 md:w-10 md:h-20 opacity-0 rotate-[30deg] scale-x-[-1] transition-opacity duration-500 delay-1400"></div>
+    <!-- Contenedor de las flores -->
+    <div class="relative flex items-end justify-center gap-4 md:gap-8">
+        
+        <!-- Flor 1 -->
+        <div class="flower-group relative flex flex-col items-center opacity-0 transition-all duration-700 ease-out" style="transform: translateY(50px);">
+            <div class="flower-container relative w-40 h-40 md:w-56 md:h-56">
+                <div class="center absolute top-1/2 left-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full -translate-x-1/2 -translate-y-1/2 scale-0 transition-all duration-500 delay-300"></div>
+            </div>
+            <div class="stem w-2 h-24 md:w-3 md:h-32 scale-y-0 transition-transform duration-500 delay-500 origin-top"></div>
+        </div>
+
+        <!-- Flor 2 (La principal) -->
+        <div class="flower-group relative flex flex-col items-center opacity-0 transition-all duration-700 ease-out" style="transform: translateY(50px);">
+            <div class="flower-container relative w-56 h-56 md:w-72 md:h-72">
+                <div class="center absolute top-1/2 left-1/2 w-16 h-16 md:w-20 md:h-20 rounded-full -translate-x-1/2 -translate-y-1/2 scale-0 transition-all duration-500 delay-200"></div>
+            </div>
+            <div class="stem w-3 h-32 md:w-4 md:h-40 scale-y-0 transition-transform duration-500 delay-400 origin-top"></div>
+            <div class="leaf leaf-shape absolute bottom-16 -left-10 w-10 h-16 md:w-12 md:h-20 opacity-0 rotate-[-20deg] transition-opacity duration-500 delay-700"></div>
+            <div class="leaf leaf-shape absolute bottom-20 -right-10 w-10 h-16 md:w-12 md:h-20 opacity-0 rotate-[20deg] scale-x-[-1] transition-opacity duration-500 delay-800"></div>
+        </div>
+
+        <!-- Flor 3 -->
+        <div class="flower-group relative flex flex-col items-center opacity-0 transition-all duration-700 ease-out" style="transform: translateY(50px);">
+            <div class="flower-container relative w-48 h-48 md:w-64 md:h-64">
+                <div class="center absolute top-1/2 left-1/2 w-14 h-14 md:w-18 md:h-18 rounded-full -translate-x-1/2 -translate-y-1/2 scale-0 transition-all duration-500 delay-400"></div>
+            </div>
+            <div class="stem w-2.5 h-28 md:w-3.5 md:h-36 scale-y-0 transition-transform duration-500 delay-600 origin-top"></div>
+        </div>
+
     </div>
 
     <!-- Frase -->
-    <h1 id="message" class="mt-8 text-3xl md:text-5xl font-cute text-primary opacity-0 transition-opacity duration-700 delay-1500">
+    <h1 id="message" class="mt-8 text-4xl md:text-6xl font-cute text-petal opacity-0 transition-opacity duration-1000 delay-1000">
         Te quiero hermana
     </h1>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('flower-container');
-            const numPetals = 16; // Número de pétalos
-            const angleStep = 360 / numPetals;
+            const flowerGroups = document.querySelectorAll('.flower-group');
+            
+            // Crear pétalos para cada flor
+            flowerGroups.forEach((group, groupIndex) => {
+                const container = group.querySelector('.flower-container');
+                const isMain = groupIndex === 1;
+                const numPetals = isMain ? 20 : 16;
+                const angleStep = 360 / numPetals;
+                const size = isMain ? 'w-14 h-24 md:w-16 md:h-28' : 'w-10 h-18 md:w-12 md:h-20';
 
-            // Crear pétalos
-            for (let i = 0; i < numPetals; i++) {
-                const petal = document.createElement('div');
-                petal.classList.add('petal', 'absolute', 'w-12', 'h-24', 'md:w-16', 'md:h-32', 'top-1/2', 'left-1/2', '-translate-x-1/2', '-translate-y-full', 'opacity-0', 'scale-0');
-                petal.style.transform = `rotate(${i * angleStep}deg) translateY(-10px)`;
-                petal.style.transition = `all 0.5s ease ${i * 0.05}s`;
-                container.appendChild(petal);
-            }
+                for (let i = 0; i < numPetals; i++) {
+                    const petal = document.createElement('div');
+                    petal.classList.add('petal', 'petal-shape', 'absolute', 'top-1/2', 'left-1/2', '-translate-x-1/2', '-translate-y-full', 'scale-0', 'opacity-0');
+                    petal.classList.add(...size.split(' '));
+                    petal.style.transform = `rotate(${i * angleStep}deg) translateY(-5px)`;
+                    petal.style.transition = `all 0.4s ease ${i * 0.03 + (groupIndex * 0.2)}s`;
+                    container.appendChild(petal);
+                }
+            });
 
-            // Iniciar animación
+            // Iniciar animación y música
             setTimeout(() => {
-                // Aparecer centro
-                const center = document.querySelector('.center');
-                center.classList.remove('opacity-0', 'scale-0');
-                center.classList.add('opacity-100', 'scale-100');
+                // Aparecer grupos de flores
+                flowerGroups.forEach(group => {
+                    group.classList.remove('opacity-0');
+                    group.style.transform = 'translateY(0)';
+                });
+
+                // Aparecer centros
+                const centers = document.querySelectorAll('.center');
+                centers.forEach(center => {
+                    center.classList.remove('scale-0');
+                    center.classList.add('scale-100');
+                });
 
                 // Aparecer pétalos
                 const petals = document.querySelectorAll('.petal');
                 petals.forEach(petal => {
-                    petal.classList.remove('opacity-0', 'scale-0');
-                    petal.classList.add('opacity-100', 'scale-100');
+                    petal.classList.remove('scale-0', 'opacity-0');
+                    petal.classList.add('scale-100', 'opacity-100');
                 });
 
-                // Aparecer tallo, hojas y frase
-                document.querySelector('.stem').classList.add('opacity-100');
-                document.querySelectorAll('.leaf').forEach(leaf => leaf.classList.add('opacity-100'));
+                // Crecer tallos
+                const stems = document.querySelectorAll('.stem');
+                stems.forEach(stem => {
+                    stem.classList.remove('scale-y-0');
+                    stem.classList.add('scale-y-100');
+                });
+
+                // Aparecer hojas
+                const leaves = document.querySelectorAll('.leaf');
+                leaves.forEach(leaf => {
+                    leaf.classList.add('opacity-100');
+                });
+
+                // Aparecer mensaje
                 document.getElementById('message').classList.add('opacity-100');
+
+                // Reproducir música
+                const music = document.getElementById('bgMusic');
+                music.play().catch(e => console.log("Reproducción automática bloqueada, haz clic en la página para escuchar la música"));
+
             }, 300);
         });
     </script>
